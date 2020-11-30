@@ -1,16 +1,13 @@
 require('dotenv/config');
 const express = require('express');
+// routes
+const routes = require('./routes');
 
 const server = express();
-const PORT = process.env.PORT || 8080;
-
 server.use(express.json());
+server.use(routes);
 
-server.get('/', (req, res) => {
-  res.json({
-    message: 'Hello world adsdas'
-  });
-});
+const PORT = process.env.PORT || 8080;
 
 server.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
