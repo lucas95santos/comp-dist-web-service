@@ -55,7 +55,7 @@ class MovieService {
 
     console.log('Criando um novo filme');
 
-    const fullData = await this.select(id);
+    const fullData = await this._privateSelect(id);
 
     if (!fullData)
       throw new Error('Erro ao retornar novo filme');
@@ -91,7 +91,7 @@ class MovieService {
     const updatedData = await connection.query(sql, values);
 
     if (!updatedData)
-      throw new Error('Erro ao remover filme');
+      throw new Error('Erro ao atualizar filme');
 
     console.log(`Filme com o id ${id} atualizado`);
 
