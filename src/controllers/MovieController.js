@@ -47,9 +47,27 @@ class MovieController {
     }
   }
 
-  // async update() {
+  async update(request, response) {
+    try {
+      const { title, synopsis } = request.body;
+      const { id } = request.params;
 
-  // }
+      if (title === undefined && synopsis === undefined) {
+        return response.status(400).json({
+          error: 'Informe pelo menos um campo para atualizar o filme'
+        });
+      }
+
+      const movieService = new MovieService();
+      const info = await movieService.update({ title, synopsis }, id);
+
+      return response.status(200).json(info);
+    } catch (err) {
+      return response.status(400).json({
+        error: err.message
+      });
+    }
+  }
 
   async delete(request, response) {
     try {

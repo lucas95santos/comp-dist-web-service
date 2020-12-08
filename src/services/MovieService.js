@@ -50,6 +50,41 @@ class MovieService {
     return fullData;
   }
 
+  async update(body, id) {
+    const data = await this.select(id);
+
+    if (!data)
+      throw new Error(`Não existe filme com o id ${id}`);
+
+    const connection = await connect();
+
+    let sql = 'UPDATE movies SET ';
+
+    const values = [];
+    const fields = Object.keys(body);
+
+    fields.forEach(field => {
+      if (body[field] !== undefined) {
+        values.push(body[field]);
+        sql += `${field}=?, `
+      }
+    });
+
+    values.push(parseInt(id));
+
+    sql += 'WHERE id=?';
+    sql = sql.replace(', W', ' W');
+
+    const updatedData = await connection.query(sql, values);
+
+    if (!updatedData)
+      throw new Error('Erro ao remover filme');
+
+    console.log(sql);
+
+    return `Filme com o id ${id} atualizado`;
+  }
+
   async delete(id){
     const data = await this.select(id);
 

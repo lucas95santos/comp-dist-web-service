@@ -15,6 +15,7 @@ moviesRouter.get('/:id', movieController.show);
 moviesRouter.post('/', movieController.create);
 
 // rota para atualizar um filme a partir do seu identificador
+moviesRouter.put('/:id', movieController.update);
 
 // rota para remover um filme a partir do seu identificador
 moviesRouter.delete('/:id', movieController.delete);
