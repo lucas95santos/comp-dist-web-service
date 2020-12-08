@@ -53,7 +53,7 @@ class ActorController {
 
       if (name === undefined && birth_date === undefined) {
         return response.status(400).json({
-          error: 'Informe pelo menos um campo para atualizar o filme'
+          error: 'Informe pelo menos um campo para atualizar o ator'
         });
       }
 
