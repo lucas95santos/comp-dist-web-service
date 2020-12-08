@@ -25,7 +25,6 @@ class MovieController {
 
       return response.status(200).json(data);
     } catch (err) {
-      console.error(err);
       return response.status(400).json({
         error: err.message
       });

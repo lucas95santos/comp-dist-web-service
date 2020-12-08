@@ -9,7 +9,7 @@ class MovieService {
     if (!rows)
       throw new Error('Erro ao buscar filmes');
 
-    console.log('SELECT * FROM movies');
+    console.log('Listando todos os filmes');
 
     return rows;
   }
@@ -19,10 +19,10 @@ class MovieService {
 
     const [rows] = await connection.query(`SELECT DISTINCT * FROM movies WHERE id=${id}`);
 
-    if (!rows)
+    if (!rows || rows.length === 0)
       throw new Error(`Não existe filme com o id ${id}`);
 
-    console.log(`SELECT DISTINCT * FROM movies WHERE id=${id}`);
+    console.log(`Listando o filme de id ${id}`);
 
     return rows[0];
   }
@@ -40,7 +40,7 @@ class MovieService {
     if (!data)
       throw new Error('Erro ao inserir filme');
 
-    console.log(`INSERT INTO movies (id, title, synopsis) VALUES (${id}, ${title}, ${synopsis})`);
+    console.log('Criando um novo filme');
 
     const fullData = await this.select(id);
 
@@ -80,7 +80,7 @@ class MovieService {
     if (!updatedData)
       throw new Error('Erro ao remover filme');
 
-    console.log(sql);
+    console.log(`Filme com o id ${id} atualizado`);
 
     return `Filme com o id ${id} atualizado`;
   }
@@ -99,7 +99,7 @@ class MovieService {
     if (!deletedData)
       throw new Error('Erro ao remover filme');
 
-    console.log(`DELETE FROM movies WHERE id=${id}`);
+    console.log(`Filme com o id ${id} removido`);
 
     return `Filme com o id ${id} removido`;
   }
