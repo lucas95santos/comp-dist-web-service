@@ -6,7 +6,7 @@ const movieController = new MovieController();
 const moviesRouter = Router();
 
 // rota para listar todos os filmes
-moviesRouter.get('/', movieController.index);
+moviesRouter.get('/:type?', movieController.index);
 
 // rota para listar um filme específico a partir do seu identificador
 moviesRouter.get('/:id', movieController.show);
