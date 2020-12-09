@@ -20,4 +20,7 @@ moviesRouter.put('/:id', movieController.update);
 // rota para remover um filme a partir do seu identificador
 moviesRouter.delete('/:id', movieController.delete);
 
+// rota para listar todos os atores de um filme específico
+moviesRouter.get('/:id/actors', movieController.showActors);
+
 module.exports = moviesRouter;

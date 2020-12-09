@@ -29,6 +29,28 @@ class MovieService {
     return rows[0];
   }
 
+  async selectActors(id) {
+    const data = await this._privateSelect(id);
+
+    if (!data)
+      throw new Error(`Não existe filme com o id ${id}`);
+
+    const connection = await connect();
+
+    let sql = 'SELECT DISTINCT a.id, a.name, a.birth_date, a.created_at, a.updated_at ';
+    sql += 'FROM actors as a, movies_actors as ma, movies as m ';
+    sql += `WHERE m.id=${id} AND a.id=ma.actor_id AND m.id=ma.movie_id`;
+
+    const [rows] = await connection.query(sql);
+
+    if (!rows)
+      throw new Error(`Não há atores para esse filme`);
+
+    console.log(`Listando os atores do filme de id ${id}`);
+
+    return rows;
+  }
+
   async _privateSelect(id) {
     const connection = await connect();
 

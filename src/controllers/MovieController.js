@@ -31,6 +31,21 @@ class MovieController {
     }
   }
 
+  async showActors(request, response) {
+    try {
+      const { id } = request.params;
+
+      const movieService = new MovieService();
+      const data = await movieService.selectActors(id);
+
+      return response.status(200).json(data);
+    } catch (err) {
+      return response.status(400).json({
+        error: err.message
+      });
+    }
+  }
+
   async create(request, response) {
     try {
       const { id, title, synopsis } = request.body;
