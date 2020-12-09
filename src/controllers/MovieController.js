@@ -4,21 +4,36 @@ const MovieService = require('../services/MovieService');
 
 class MovieController {
   async index(request, response) {
-    const { type } = request.params;
+    try {
+      const movieService = new MovieService();
+      const rows = await movieService.selectAll();
+
+      return response.status(200).json(rows);
+    } catch (err) {
+      return response.status(400).json({
+        error: err.message
+      });
+    }
+  }
+
+  async show(request, response) {
+    const { id } = request.params;
     const xmlBuilder = new xml.Builder();
+
+    const [realId, type] = String(id).split('.');
 
     const responseFormat = type && type === 'xml' ? 1 : !type || type === 'json' ? 0 : null;
 
     try {
       const movieService = new MovieService();
-      const rows = await movieService.selectAll();
+      const data = await movieService.select(realId);
 
       switch (responseFormat) {
         case 1:
           response.set('Content-Type', 'text/xml');
-          return response.status(200).send(xmlBuilder.buildObject(rows));
+          return response.status(200).send(xmlBuilder.buildObject(data));
         case 0:
-          return response.status(200).json(rows);
+          return response.status(200).json(data);
       }
     } catch (err) {
       switch (responseFormat) {
@@ -32,21 +47,6 @@ class MovieController {
             error: err.message
           });
       }
-    }
-  }
-
-  async show(request, response) {
-    try {
-      const { id } = request.params;
-
-      const movieService = new MovieService();
-      const data = await movieService.select(id);
-
-      return response.status(200).json(data);
-    } catch (err) {
-      return response.status(400).json({
-        error: err.message
-      });
     }
   }
 
