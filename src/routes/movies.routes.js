@@ -8,7 +8,7 @@ const moviesRouter = Router();
 // rota para listar todos os filmes
 moviesRouter.get('/', movieController.index);
 
-// rota para listar um filme específico a partir do seu identificador
+// rota para listar um filme específico a partir do seu identificador (retorna em json e em xml)
 moviesRouter.get('/:id', movieController.show);
 
 // rota para cadastrar um filme
@@ -20,7 +20,7 @@ moviesRouter.put('/:id', movieController.update);
 // rota para remover um filme a partir do seu identificador
 moviesRouter.delete('/:id', movieController.delete);
 
-// rota para listar todos os atores de um filme específico
+// rota para listar todos os atores de um filme específico (retorna em json e em xml)
 moviesRouter.get('/:id/actors', movieController.showActors);
 
 module.exports = moviesRouter;

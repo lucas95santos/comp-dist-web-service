@@ -8,7 +8,7 @@ const actorsRouter = Router();
 // rota para listar todos os atores
 actorsRouter.get('/', actorController.index);
 
-// rota para listar um ator específico a partir do seu identificador
+// rota para listar um ator específico a partir do seu identificador (retorna em json e em xml)
 actorsRouter.get('/:id', actorController.show);
 
 // rota para cadastrar um ator
