@@ -20,7 +20,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
 
   webservice:
-    image: node:alpine
+    build: .
     container_name: web-service
     env_file: ./.env
     restart: always
